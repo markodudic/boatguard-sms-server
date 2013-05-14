@@ -1,0 +1,56 @@
+Deploying to Maven
+------------------
+
+Sonatype OSS Maven repositories:
+
+https://oss.sonatype.org/content/repositories/snapshots/
+    repository for deploying snapshots
+https://oss.sonatype.org/service/local/staging/deploy/maven2/
+    repository for staging releases
+https://oss.sonatype.org/content/repositories/releases/
+    repository where staging promotion will go, this repository is synced to Maven Central
+https://oss.sonatype.org/content/groups/public/
+    repository group which contains snapshots and releases
+
+Preparation
+-----------
+You need to create $HOME/.m2/settings.xml file with the following contents:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <servers>
+        <server>
+            <id>smslib-snapshots</id>
+            <username>[Sonatype JIRA username]</username>
+            <password>[Sonatype JIRA password]</password>
+        </server>
+        <server>
+            <id>smslib-staging</id>
+            <username>[Sonatype JIRA username]</username>
+            <password>[Sonatype JIRA password]</password>
+        </server>
+        <server>
+            <id>smslib-releases</id>
+            <username>[Sonatype JIRA username]</username>
+            <password>[Sonatype JIRA password]</password>
+        </server>
+    </servers>
+</settings>
+
+Sonatype requires artifacts that will be synced to Maven Central to be GPG-signed.
+So GPG is required.
+
+Deploying
+---------
+Run ant with one of the following:
+
+ deploy-smslib-local      Deploy smslib JAR to Maven repository in maven2/ (SVN checkout).
+ deploy-smslib-snapshots  Deploy smslib JAR, javadoc, and sources to Maven snapshots repository.
+ deploy-smslib-staging    Sign and deploy smslib JAR, javadoc, and sources to Maven staging repository.
+
+"local" is not very useful now, as we're already using Sonatype OSS Repositor.
+
+"snapshots" is used to deploy development stuff (i.e. between releases).
+
+"staging" is used to deploy release stuff, that later can be promoted to releases repository
+by logging in to Sonatype Nexus Web UI.

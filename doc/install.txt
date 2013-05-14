@@ -1,0 +1,13 @@
+http://smslib.org/doc/
+http://smslib.org/doc/smsserver/
+http://smslib.org/doc/smsserver/interfaces/database/
+
+Distribucijo (\dist) kreiras tako da na korenskem imeniku projekta pozenes:
+ant build-smsserver
+ali pa iz eclipsa tako da dodas parameter "build-smsserver"
+
+Konfiguracijo definiras v:
+SMSServer.conf
+
+Smsserver zazenes na korenskem imeniku z:
+java -cp dist\lib\smsserver-3.5.3.jar;dist\lib\log4j-1.2.16.jar;dist\lib\mysql-connector-java-5.1.0-bin.jar -Dsmsserver.configdir=dist\ -Dlog4j.configuration="file:dist/log4j.properties" org.smslib.smsserver.SMSServer
