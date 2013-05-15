@@ -165,6 +165,8 @@
 		<jar jarfile="${jar.dir}/${smsserver.jar.filename}" basedir="${class.dir}"
 			includes="org/**/*.class"
 			manifest="${jar.dir}/SMSServer.mf"/>
+		<copy file="${smslib.source.dir}/org/smslib/smsserver/SMSserver.conf" tofile="${dist.dir}/SMSServer.conf" filtering="true"/>
+		<copy file="${smslib.source.dir}/org/smslib/smsserver/log4j.properties" tofile="${dist.dir}/log4j.properties" filtering="true"/>
 	</target>
 
 	<target name="build.smsserver.standalone" depends="compile.smsserver, pre-build.smsserver">
