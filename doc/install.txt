@@ -11,3 +11,7 @@ SMSServer.conf
 
 Smsserver zazenes na korenskem imeniku z:
 java -cp dist\lib\smsserver-3.5.3.jar;dist\lib\log4j-1.2.16.jar;dist\lib\mysql-connector-java-5.1.0-bin.jar -Dsmsserver.configdir=dist\ -Dlog4j.configuration="file:dist/log4j.properties" org.smslib.smsserver.SMSServer
+
+LINUX
+cd /home/BoatGuard
+java -cp /home/BoatGuard/lib/smsserver-3.5.3.jar:/home/BoatGuard/lib/log4j-1.2.8.jar:/home/BoatGuard/lib/mysql-connector-java-5.0.8-bin.jar -Dlog4j.configuration="file:log4j.properties" org.smslib.smsserver.SMSServer
