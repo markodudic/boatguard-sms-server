@@ -25,5 +25,9 @@ cd /home/BoatGuard
 java -cp lib/RXTXcomm-2.2pre2.jar:lib/log4j-1.2.17.jar:lib/mysql-connector-java-5.1.0-bin.jar: -Djava.library.path=/usr/lib/jni -Dlog4j.configuration="file:log4j.properties" -Dsmslib.serial.polling=true -Dgnu.io.rxtx.SerialPorts=/dev/ttyUSB0  org.smslib.smsserver.SMSServer
 
 - če bi zagnal tako da lahko zapreš consolo pa poženi z "&" na koncu in izpiši disown
-java -cp lib/RXTXcomm-2.2pre2.jar:lib/log4j-1.2.17.jar:lib/mysql-connector-java-5.1.0-bin.jar: -Djava.library.path=/usr/lib/jni -Dlog4j.configuration="file:log4j.properties" -Dsmslib.serial.polling=true -Dgnu.io.rxtx.SerialPorts=/dev/ttyUSB0  org.smslib.smsserver.SMSServer
+java -cp lib/RXTXcomm-2.2pre2.jar:lib/log4j-1.2.17.jar:lib/mysql-connector-java-5.1.0-bin.jar: -Djava.library.path=/usr/lib/jni -Dlog4j.configuration="file:log4j.properties" -Dsmslib.serial.polling=true -Dgnu.io.rxtx.SerialPorts=/dev/ttyUSB0  org.smslib.smsserver.SMSServer &
 disown
+
+- stop
+ps -ef | grep Boat
+ps aux | grep -ie Boat | awk '{print $2}' | xargs kill -9
