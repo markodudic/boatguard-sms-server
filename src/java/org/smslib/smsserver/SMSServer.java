@@ -379,7 +379,7 @@ public class SMSServer
 			if (msgList.size() > 0)
 			{
 				for (InboundMessage msg : msgList) {
-					callHttpServer("http://93.103.12.155:8080/boatguard/getdatasms?originator="+msg.getOriginator()+"&text"+msg.getText());
+					callHttpServer("http://93.103.12.155:8080/boatguard/getdatasms?originator="+msg.getOriginator()+"&text="+msg.getText());
 				}
 				
 				for (Interface<? extends Object> inf : getInfList())
