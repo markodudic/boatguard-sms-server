@@ -21,6 +21,7 @@
 package org.smslib.smsserver;
 
 import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -28,6 +29,13 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.smslib.ICallNotification;
 import org.smslib.IInboundMessageNotification;
 import org.smslib.IOrphanedMessageNotification;
@@ -43,6 +51,8 @@ import org.smslib.helper.Logger;
 import org.smslib.smsserver.gateways.AGateway;
 import org.smslib.smsserver.interfaces.Interface;
 import org.smslib.smsserver.interfaces.Interface.InterfaceTypes;
+
+
 
 /**
  * SMSServer Application.
@@ -368,6 +378,10 @@ public class SMSServer
 			Service.getInstance().readMessages(msgList, MessageClasses.ALL);
 			if (msgList.size() > 0)
 			{
+				for (InboundMessage msg : msgList) {
+					callHttpServer("http://93.103.12.155:8080/boatguard/getdatasms?originator="+msg.getOriginator()+"&text"+msg.getText());
+				}
+				
 				for (Interface<? extends Object> inf : getInfList())
 					if (inf.isInbound()) inf.messagesReceived(msgList);
 				if (getProperties().getProperty("settings.delete_after_processing", "no").equalsIgnoreCase("yes"))
@@ -380,6 +394,26 @@ public class SMSServer
 		}
 	}
 
+	
+    protected String callHttpServer(String url) {
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpContext localContext = new BasicHttpContext();
+        HttpPost httpPost = new HttpPost(url);
+        
+
+        httpPost.setHeader("Content-type", "application/plain; charset=utf-8");
+        
+        String text = null;
+        try {
+     	   httpClient.execute(httpPost, localContext);
+        } catch (Exception e) {
+     	   return e.getLocalizedMessage();
+        }
+        
+        return text;
+ 	}
+    
+	
 	void sendMessages()
 	{
 		boolean foundOutboundGateway = false;

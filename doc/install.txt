@@ -10,7 +10,7 @@ Konfiguracijo definiras v:
 SMSServer.conf
 
 Smsserver zazenes na korenskem imeniku z:
-java -cp dist\lib\smsserver-3.5.3.jar;dist\lib\log4j-1.2.16.jar;dist\lib\mysql-connector-java-5.1.0-bin.jar -Dsmsserver.configdir=dist\ -Dlog4j.configuration="file:dist/log4j.properties" org.smslib.smsserver.SMSServer
+java -cp dist\lib\smsserver-3.5.3.jar;dist\lib\log4j-1.2.16.jar;dist\lib\mysql-connector-java-5.1.0-bin.jar;lib/httpclient-4.3.6.jar;lib/httpcore-4.3.3.jar;lib/commons-logging-1.1.3.jar -Dsmsserver.configdir=dist\ -Dlog4j.configuration="file:dist/log4j.properties" org.smslib.smsserver.SMSServer
 
 LINUX
 - nastavitev vseh komponent
@@ -25,7 +25,7 @@ cd /home/BoatGuard
 java -cp lib/RXTXcomm-2.2pre2.jar:lib/log4j-1.2.17.jar:lib/mysql-connector-java-5.1.0-bin.jar: -Djava.library.path=/usr/lib/jni -Dlog4j.configuration="file:log4j.properties" -Dsmslib.serial.polling=true -Dgnu.io.rxtx.SerialPorts=/dev/ttyUSB0  org.smslib.smsserver.SMSServer
 
 - če bi zagnal tako da lahko zapreš consolo pa poženi z "&" na koncu in izpiši disown
-java -cp lib/RXTXcomm-2.2pre2.jar:lib/log4j-1.2.17.jar:lib/mysql-connector-java-5.1.0-bin.jar: -Djava.library.path=/usr/lib/jni -Dlog4j.configuration="file:log4j.properties" -Dsmslib.serial.polling=true -Dgnu.io.rxtx.SerialPorts=/dev/ttyUSB0  org.smslib.smsserver.SMSServer &
+java -cp lib/RXTXcomm-2.2pre2.jar:lib/log4j-1.2.17.jar:lib/mysql-connector-java-5.1.0-bin.jar:lib/httpclient-4.3.6.jar:lib/httpcore-4.3.3.jar:lib/commons-logging-1.1.3.jar: -Djava.library.path=/usr/lib/jni -Dlog4j.configuration="file:log4j.properties" -Dsmslib.serial.polling=true -Dgnu.io.rxtx.SerialPorts=/dev/ttyUSB0  org.smslib.smsserver.SMSServer &
 disown
 
 - stop
